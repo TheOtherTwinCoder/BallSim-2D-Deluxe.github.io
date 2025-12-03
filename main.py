@@ -117,10 +117,6 @@ def gamescreen():
 
     # Circle 2 (socket client)
     pos2 = pygame.Vector2(screen_width / 3, screen_height / 2) # Player 2 Center (Blue)
-
-    # --- FIX: Initialize soccerpos to the CENTER of the desired starting location ---
-    # The desired starting top-left was (1190, 630). 
-    # Center = (Top-Left X + radius, Top-Left Y + radius)
     start_x_top_left = 1190
     start_y_top_left = 630
     soccerpos = pygame.Vector2(start_x_top_left + ball_radius, start_y_top_left + ball_radius)
@@ -147,10 +143,6 @@ def gamescreen():
                 pass
 
         keys = pygame.key.get_pressed()
-
-        # -------------------------------
-        # CIRCLE 1 — KEYBOARD MOVEMENT
-        # -------------------------------
         if keys[pygame.K_w] or keys[pygame.K_UP]:
             pos.y -= 10
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -161,11 +153,6 @@ def gamescreen():
             pos.x += 10
 
         # -------------------------------
-        # CIRCLE 2 — NETWORK MOVEMENT
-        # -------------------------------
-        # The network movement logic is kept, assuming your client sends 'start' and 'stop' signals.
-        
-        # W / UP
         if inputed == "w_start":
             pos2.y -= 10
         elif inputed == "w_stop":
@@ -193,21 +180,12 @@ def gamescreen():
 
     
         screen.fill("white")
-        
-        # Distance Checker / Physics
-        # The collision check distance (250) is correct: Player Radius (100) + Ball Radius (150)
-        # soccerpos now correctly represents the ball's center.
+    
         if pos.distance_to(soccerpos) <= 130 or pos2.distance_to(soccerpos) <= 130:
             
             # --- Define the impulse strength ---
             IMPULSE_SPEED = 25 # How fast the ball should start moving
-            # print("BOOM") # Optional: comment out if too noisy
-            
-            # Determine which player and which direction caused the hit
-            # Note: This logic only applies the last key pressed to the ball, 
-            # which is simplistic but matches your original intent.
 
-            # Keyboard Player (pos)
             if keys[pygame.K_w] or keys[pygame.K_UP]:
                 ball_vel_y = -IMPULSE_SPEED 
                 ball_vel_x = 0
