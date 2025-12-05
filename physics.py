@@ -7,7 +7,7 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 drag = 0.15
-
+pygame.display.set_caption('Physics Engine V2')
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 ball_pos = pygame.Vector2(screen.get_width() / 2 + 100, screen.get_height() / 2)
 
